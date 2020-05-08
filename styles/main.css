@@ -29,12 +29,12 @@
 }
 .tableLoadingToZero{
   animation-name: tableLoadingToZero;
-  animation-duration: .5s;
+  animation-duration: .75s;
   animation-fill-mode: forwards;
 }
 .tableLoadingToOne{
   animation-name: tableLoadingToOne;
-  animation-duration: .5s;
+  animation-duration: .75s;
   animation-fill-mode: forwards;
 }
 input[type="number"]::-webkit-outer-spin-button,
