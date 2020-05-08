@@ -189,35 +189,41 @@ const swapButton = document.getElementById("navigation").children[2];
 swapButton.addEventListener("click", swapToNations);
 
 function swapToNations(){
+  swapButton.innerText = 'Скрыть нации';
   tableOpacityToZero();
-  for(i=0; i<46; i++){
-    let childSpan = parent.children[i].children[0];
-    let nationName = childSpan.getAttribute("nation");
-    let leaderFullName = childSpan.getAttribute("leader");
-    let leaderName;
-    if(leaderFullName.search(" ") != -1){
-      let leaderFirstName = leaderFullName.slice(0, leaderFullName.search(" "));
-      leaderName = leaderFirstName + ' | ' + nationName;
-    }else{
-      leaderName = leaderFullName + ' | ' + nationName;
-    }
-    childSpan.children[2].innerText = leaderName;
+  function cycleOne(){
+    for(i=0; i<46; i++){
+      let childSpan = parent.children[i].children[0];
+      let nationName = childSpan.getAttribute("nation");
+      let leaderFullName = childSpan.getAttribute("leader");
+      let leaderName;
+      if(leaderFullName.search(" ") != -1){
+        let leaderFirstName = leaderFullName.slice(0, leaderFullName.search(" "));
+        leaderName = leaderFirstName + ' | ' + nationName;
+      }else{
+        leaderName = leaderFullName + ' | ' + nationName;
+      };
+      childSpan.children[2].innerText = leaderName;
+    };
   };
+  setTimeout(cycleOne, 75);
   swapButton.removeEventListener("click", swapToNations);
   swapButton.addEventListener("click", swapToLeadersName);
-  swapButton.innerText = 'Показать имена';
-  tableOpacityToOne();
+  setTimeout(tableOpacityToOne, 10);
 };
 
 function swapToLeadersName(){
   tableOpacityToZero();
-  for(i=0; i<46; i++){
-    let childSpan = parent.children[i].children[0];
-    let leaderName = childSpan.getAttribute("leader");
-    childSpan.children[2].innerText = leaderName;
-  };
+  function cycleTwo(){
+    for(i=0; i<46; i++){
+      let childSpan = parent.children[i].children[0];
+      let leaderName = childSpan.getAttribute("leader");
+      childSpan.children[2].innerText = leaderName;
+    };
+  }
+  setTimeout(cycleTwo, 75);
   swapButton.removeEventListener("click", swapToLeadersName);
   swapButton.addEventListener("click", swapToNations);
   swapButton.innerText = 'Показать нации';
-  tableOpacityToOne();
+  setTimeout(tableOpacityToOne, 10);
 };
