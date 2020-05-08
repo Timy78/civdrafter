@@ -397,8 +397,10 @@ header ul li a{
 }
 
 .item .leader_name{
+ word-spacing: -7px;
  position: relative;
  top: -14px;
+ left: -2px;
  font-size: 16px;
  color: #D0D4D9;
 }

@@ -113,22 +113,29 @@ document.getElementById("search_search").oninput = function () {
         });
     }
 }
-
-//SORT
-
 const parent = document.getElementById("container");
 const sortButton = document.getElementById("sort_button_inside").firstChild;
+//change table to invisisble function
 
+function tableOpacityToZero(){
+  if(parent.classList.contains("tableLoadingToOne")){
+    parent.classList.remove("tableLoadingToOne");
+  }
+  parent.classList.add("tableLoadingToZero");
+}
+//change table to visisble function
+function tableOpacityToOne(){
+  parent.classList.remove("tableLoadingToZero");
+  parent.classList.add("tableLoadingToOne");
+  console.log(parent);
+}
+//SORT
 sortButton.addEventListener("click", sortAZ);
 
 //AZ
 
 function sortAZ(){
-  if(parent.classList.contains("tableLoadingToOne")){
-    parent.classList.remove("tableLoadingToOne");
-  }
-  parent.classList.add("tableLoadingToZero");
-  const parentChildren = document.querySelectorAll('.cell');
+  tableOpacityToZero();
   let cells = [...document.querySelectorAll('.cell')];
   for(i = 0; i<cellsToPush; i++){
     cells.pop();
@@ -143,8 +150,7 @@ function sortAZ(){
   for(let cell of sortedCells){
     parent.children[46].insertAdjacentElement('beforebegin', cell);
   };
-  parent.classList.remove("tableLoadingToZero");
-  parent.classList.add("tableLoadingToOne");
+  tableOpacityToOne();
 
   sortButton.removeEventListener("click", sortAZ);
   sortButton.addEventListener("click", sortZA);
@@ -154,12 +160,7 @@ function sortAZ(){
 //ZA
 
 function sortZA(){
-  if(parent.classList.contains("tableLoadingToOne")){
-    parent.classList.remove("tableLoadingToOne");
-  }
-  parent.classList.add("tableLoadingToZero");
-
-  const parentChildren = document.querySelectorAll('.cell');
+  tableOpacityToZero();
   let cells = [...document.querySelectorAll('.cell')];
   for(i = 0; i<cellsToPush; i++){
     cells.pop();
@@ -174,8 +175,7 @@ function sortZA(){
   for(let cell of sortedCells){
     parent.insertAdjacentElement('afterbegin', cell);
   };
-  parent.classList.remove("tableLoadingToZero");
-  parent.classList.add("tableLoadingToOne");
+  tableOpacityToOne();
 
   sortButton.removeEventListener("click", sortZA);
   sortButton.addEventListener("click", sortAZ);
@@ -189,29 +189,35 @@ const swapButton = document.getElementById("navigation").children[2];
 swapButton.addEventListener("click", swapToNations);
 
 function swapToNations(){
+  tableOpacityToZero();
   for(i=0; i<46; i++){
-    var nationName = parent.children[i].children[0].getAttribute("nation");
-    parent.children[i].children[0].children[2].innerText = nationName;
-    if(parent.children[i].children[0].children[3].classList.contains("nation_iconToHidden")){
-      parent.children[i].children[0].children[3].classList.remove("nation_iconToHidden");
-    };
-    parent.children[i].children[0].children[3].classList.add("nation_iconToVisible");
+    let childSpan = parent.children[i].children[0];
+    let nationName = childSpan.getAttribute("nation");
+    let leaderFullName = childSpan.getAttribute("leader");
+    let leaderName;
+    if(leaderFullName.search(" ") != -1){
+      let leaderFirstName = leaderFullName.slice(0, leaderFullName.search(" "));
+      leaderName = leaderFirstName + ' | ' + nationName;
+    }else{
+      leaderName = leaderFullName + ' | ' + nationName;
+    }
+    childSpan.children[2].innerText = leaderName;
   };
-
   swapButton.removeEventListener("click", swapToNations);
   swapButton.addEventListener("click", swapToLeadersName);
   swapButton.innerText = 'Показать имена';
+  tableOpacityToOne();
 };
+
 function swapToLeadersName(){
+  tableOpacityToZero();
   for(i=0; i<46; i++){
-    var leadersName = parent.children[i].children[0].getAttribute("leader");
-    parent.children[i].children[0].children[2].innerText = leadersName;
-    if(parent.children[i].children[0].children[3].classList.contains("nation_iconToVisible")){
-      parent.children[i].children[0].children[3].classList.remove("nation_iconToVisible");
-    };
-    parent.children[i].children[0].children[3].classList.add("nation_iconToHidden");
+    let childSpan = parent.children[i].children[0];
+    let leaderName = childSpan.getAttribute("leader");
+    childSpan.children[2].innerText = leaderName;
   };
-  swapButton.innerText = 'Показать нации';
   swapButton.removeEventListener("click", swapToLeadersName);
   swapButton.addEventListener("click", swapToNations);
+  swapButton.innerText = 'Показать нации';
+  tableOpacityToOne();
 };
