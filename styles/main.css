@@ -25,7 +25,7 @@
 }
 @keyframes tableLoadingToOne {
   0% { opacity: 0 }
-  100% { opacity: 11 }
+  100% { opacity: 1 }
 }
 .tableLoadingToZero{
   animation-name: tableLoadingToZero;
