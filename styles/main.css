@@ -63,7 +63,7 @@ input[type=number]::-webkit-outer-spin-button {
  cursor: url('../img/cursor-default.png'), default;
 }
 body{
- background:radial-gradient(60.32% 60.32% at 50% 39.68%, rgba(6, 34, 56, 0.266) 0%, rgba(3, 25, 43, 0.7) 54%), url(../img/background.png);
+ background:radial-gradient(60.32% 60.32% at 50% 39.68%, rgba(6, 34, 56, 0.266) 0%, rgba(3, 25, 43, 0.7) 54%), url(../img/background-min.png);
  background-size: cover;
  background-attachment: fixed;
 }

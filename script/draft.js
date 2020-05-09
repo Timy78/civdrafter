@@ -150,7 +150,6 @@ function tableOpacityToZero(){
 function tableOpacityToOne(){
   parent.classList.remove("tableLoadingToZero");
   parent.classList.add("tableLoadingToOne");
-  console.log(parent);
 }
 //SORT
 sortButton.addEventListener("click", sortAZ);
@@ -289,7 +288,6 @@ function startingDraft(){
   let leaderName;
   let nation;
   let nationAbb;
-  console.log(cellsArr.length);
   // creating draft table and text for clipboard
 
   let divResult = document.createElement('div');
@@ -297,12 +295,10 @@ function startingDraft(){
 
   function draftTableCreate(){
     if(document.getElementById('test') != null){
-      console.log(document.getElementById('test'));
       document.getElementById("result").children[0].remove();
     }else{
       document.getElementById("result").remove();
       document.getElementById("main").append(divResult.cloneNode(true));
-      console.log(2);
     }
 
     let playerBlockNationItem = document.createElement('div');
@@ -352,8 +348,6 @@ function startingDraft(){
         n++;
       };
     }
-
-    console.log(textForClipboard);
     navigator.clipboard.writeText(textForClipboard);
   };
   draftTableCreate();
