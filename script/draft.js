@@ -258,7 +258,6 @@ function startingDraft(){
 
 
   let checkboxes = document.getElementsByClassName("item_checkbox");
-  let itCounter = 0;
   let cellsArr = [];
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -270,15 +269,10 @@ function startingDraft(){
 
   for(i=0;i<checkboxes.length; i++){
     if(checkboxes[i].hasAttribute("disabled") != true && checkboxes[i].hasAttribute("checked")){
-      itCounter++;
-    };
-  };
-
-  for(i=0; i<itCounter; i++){
-    if(checkboxes[i].hasAttribute("disabled") != true && checkboxes[i].hasAttribute("checked")){
       cellsArr.push(checkboxes[i].parentNode)
     };
   };
+
   if(cellsArr.length< players*nationsPerPlayer){
     modalWindowVisible(2);
     return;
