@@ -63,10 +63,95 @@ input[type=number]::-webkit-outer-spin-button {
  cursor: url('../img/cursor-default.png'), default;
 }
 body{
- background:radial-gradient(60.32% 60.32% at 50% 39.68%, rgba(6, 34, 56, 0.266) 0%, rgba(3, 25, 43, 0.7) 54%), url(../img/background-min.png);
+ background:radial-gradient(60.32% 60.32% at 50% 39.68%, rgba(6, 34, 56, 0.266) 0%, rgba(3, 25, 43, 0.7) 54%), url(../img/background.png);
  background-size: cover;
  background-attachment: fixed;
 }
+
+/*modal window*/
+#modal_overlay{
+  opacity: 0;
+  visibility: hidden;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  z-index: 20;
+  transition: .3s all;
+}
+.modal_window{
+  opacity: 0;
+  visibility: hidden;
+
+  position: fixed;
+  top: 240px;
+  left: calc(50% - 215px);
+  width: 560px;
+  height:190px;
+
+}
+.modal_window_text_background{
+  position: absolute;
+  background: url(../img/modal/textbackground.svg) no-repeat;
+  width: 450px;
+  height: 190px;
+  text-align: center;
+}
+#modal_overlay.activeOverlay, .modal_window.activeModal{
+  opacity: 1;
+  visibility: visible;
+}
+.left_ornament{
+  position: absolute;
+  left: 5px;
+  top:6px;
+}
+.right_ornament{
+  position: absolute;
+  right: 5px;
+  top:6px;
+  transform: scale(-1, 1);
+}
+.helper{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.modal_window_text_background > *{
+  margin-right: 18px;
+}
+.modal_window_text_background > h2{
+  font-family: Georgia;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  color: #132643;
+}
+.modal_window_text_background > p{
+  padding: 0 20px;
+  font-family: Fira Mono;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  text-align: center;
+  color: #464F5B;
+  letter-spacing: -0.5px
+}
+.modal_window_text_background > button{
+  position: absolute;
+  bottom: 20px;
+  left: calc(50% - 89px);
+  color: white;
+  height: 30px;
+  width: 160px;
+}
+
+
+
 *::selection{
   opacity: 0;
 }
@@ -87,8 +172,11 @@ header{
 .logo{
  margin-right: auto;
  font-size: 24px;
- padding-left: 20px;
+ padding-left: 12px;
  color: #D0D4D9;
+}
+header img{
+  height: 50px;
 }
 header ul{
  list-style: none;
@@ -309,8 +397,10 @@ header ul li a{
  height: 52px;
 }
 .item-banned .leader_name{
+ word-spacing: -7px;
  position: relative;
  top: -14px;
+ left: -2px;
  font-size: 16px;
  color: #9B0000;
 }
@@ -472,4 +562,55 @@ footer{
   justify-content: space-around;
   height: 14px;
   margin-top: 40px;
+}
+
+/* THERE ARE STYLES FOR DRAFT TABLE*/
+
+#result{
+  text-align: center;
+  width: 100%;
+}
+.draft_table_cell{
+  display: inline-block;
+  margin: 20px;
+  color: #169D98;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 18px;
+  text-align: left;
+}
+.draft_table_cell_item{
+  position: relative;
+  background: linear-gradient(180deg, #06192A 0%, #0B3253 100%);
+  border: 2px solid #122E48;
+  box-shadow: 4px 4px 4px rgba(4, 25, 42, 0.3);
+  border-radius: 5px;
+  width: 284px;
+  height: 30px;
+  margin: 28px;
+  margin-left: 0;
+}
+.draft_table_cell_item > img{
+  position: absolute;
+  height: 38px;
+  top: -4px;
+  left: -4px;
+}
+.draft_table_cell_item >  span{
+  position: relative;
+  color: #D0D4D9;
+  font-family: Fira Mono;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  top: 6px;
+  left: 38px;
+}
+#test{
+  width: 100%;
+  text-align: center;
+  color: #48476A;
+  opacity: 30%;
+  font-size: 500%;
 }

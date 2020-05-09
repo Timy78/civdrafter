@@ -28,14 +28,27 @@ function pushCells(maxCells, columns){
     cellsToPush = 0;
   }
 };
-
-const allLeaders = [];
-[].forEach.call(document.getElementsByClassName('item'), function(el) {
-    allLeaders.push(el.id);
-});
-var filtered = allLeaders.filter(Boolean);
-
-var bannedLeaders = [];
+//modal window
+const overlay = document.getElementById("modal_overlay");
+function modalWindowVisible(modalId){
+  overlay.classList.add("activeOverlay");
+  if(modalId == 1){
+    let bannedNationsQt = 46 - +document.getElementsByName("players_qt")[0].value * +document.getElementsByName("leaders_qt")[0].value
+    if(bannedNationsQt<=0){
+      overlay.children[0].children[0].children[2].innerText = 'При указанном количестве игроков и лидеров на каждого игрока вы не можете никого банить, измените настройки';
+    }else{
+      overlay.children[0].children[0].children[2].innerText = 'При указанном количестве игроков и лидеров на каждого игрока, нельзя забанить больше чем ' + bannedNationsQt + ' лидеров, измените настройки';
+    }
+    overlay.children[0].classList.add("activeModal");
+  }else if (modalId == 2) {
+    overlay.children[0].children[0].children[2].innerText = 'Количество игроков или лидеров на каждого игрока слишком большое, измените настройки'
+    overlay.children[0].classList.add("activeModal");
+  }
+}
+function modalWindowHidden(){
+    overlay.classList.remove("activeOverlay");
+    overlay.children[0].classList.remove("activeModal");
+}
 
 document.getElementById('container').onclick = function(){
   let target = event.target;
@@ -56,15 +69,25 @@ document.getElementById('container').onclick = function(){
   };
 };
 function banningAndChecking(checkbox){
+  let remainsBlock = document.getElementById('remain').childNodes[1].innerHTML;
+  let bannedBlock = document.getElementById('banned').childNodes[1].innerHTML;
+  let players = document.getElementsByName("players_qt")[0].value;
+  let leaders = document.getElementsByName("leaders_qt")[0].value;
   if(checkbox.hasAttribute('checked')){
-    document.getElementById('remain').childNodes[1].innerHTML = +document.getElementById('remain').childNodes[1].innerHTML -1;
-    document.getElementById('banned').childNodes[1].innerHTML = +document.getElementById('banned').childNodes[1].innerHTML +1;
-    checkbox.removeAttribute('checked');
-    checkbox.parentNode.classList.toggle("item");
-    checkbox.parentNode.classList.toggle("item-banned");
+    if(document.getElementById('remain').childNodes[1].innerHTML <= players*leaders){
+      modalWindowVisible(1);
+    }else{
+      document.getElementById('remain').childNodes[1].innerHTML = +remainsBlock -1;
+      document.getElementById('banned').childNodes[1].innerHTML = +bannedBlock +1;
+
+      checkbox.removeAttribute('checked');
+      checkbox.parentNode.classList.toggle("item");
+      checkbox.parentNode.classList.toggle("item-banned");
+    }
   } else{
-    document.getElementById('remain').childNodes[1].innerHTML = +document.getElementById('remain').childNodes[1].innerHTML +1;
-    document.getElementById('banned').childNodes[1].innerHTML = +document.getElementById('banned').childNodes[1].innerHTML -1;
+    document.getElementById('remain').childNodes[1].innerHTML = +remainsBlock +1;
+    document.getElementById('banned').childNodes[1].innerHTML = +bannedBlock -1;
+
     checkbox.setAttribute('checked', null);
     checkbox.parentNode.classList.toggle("item");
     checkbox.parentNode.classList.toggle("item-banned");
@@ -226,4 +249,112 @@ function swapToLeadersName(){
   swapButton.addEventListener("click", swapToNations);
   swapButton.innerText = 'Показать нации';
   setTimeout(tableOpacityToOne, 10);
+};
+
+//oh fuck we r starting
+function startingDraft(){
+  let players = document.getElementsByName("players_qt")[0].value;
+  let nationsPerPlayer = document.getElementsByName("leaders_qt")[0].value;
+
+
+
+  let checkboxes = document.getElementsByClassName("item_checkbox");
+  let itCounter = 0;
+  let cellsArr = [];
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    };
+    return array;
+  };
+
+  for(i=0;i<checkboxes.length; i++){
+    if(checkboxes[i].hasAttribute("disabled") != true && checkboxes[i].hasAttribute("checked")){
+      itCounter++;
+    };
+  };
+
+  for(i=0; i<itCounter; i++){
+    if(checkboxes[i].hasAttribute("disabled") != true && checkboxes[i].hasAttribute("checked")){
+      cellsArr.push(checkboxes[i].parentNode)
+    };
+  };
+  if(cellsArr.length< players*nationsPerPlayer){
+    modalWindowVisible(2);
+    return;
+  }
+  shuffleArray(cellsArr);
+
+  let leaderName;
+  let nation;
+  let nationAbb;
+  console.log(cellsArr.length);
+  // creating draft table and text for clipboard
+
+  let divResult = document.createElement('div');
+  divResult.id = 'result';
+
+  function draftTableCreate(){
+    if(document.getElementById('test') != null){
+      console.log(document.getElementById('test'));
+      document.getElementById("result").children[0].remove();
+    }else{
+      document.getElementById("result").remove();
+      document.getElementById("main").append(divResult.cloneNode(true));
+      console.log(2);
+    }
+
+    let playerBlockNationItem = document.createElement('div');
+    playerBlockNationItem.classList.add('draft_table_cell_item');
+    playerBlockNationItem.innerHTML = '<img src="" alt=""><span>1</span>';
+
+    let playerBlock = document.createElement('div');
+    playerBlock.classList.add('draft_table_cell');
+    playerBlock.innerHTML = "<h4></h4>";
+
+    let maxNations = players * nationsPerPlayer;
+    players = +players;
+    let p = 0;
+    let n = 0;
+    let textForClipboard = '';
+
+    for(k=0; k < players; k++){
+      p = k+1;
+      document.getElementById("result").append(playerBlock.cloneNode(true));
+      document.getElementById("result").children[k].innerText = "Игрок " + p;
+      if(k > 0){
+        textForClipboard = textForClipboard + "\nИгрок " + p + ':   ';
+      }else{
+        textForClipboard = textForClipboard + "Игрок " + p + ':   ';
+      }
+      for(i=0; i<nationsPerPlayer; i++){
+        nation = cellsArr[n].attributes.nation.value;
+        leaderName = cellsArr[n].attributes.leader.value;
+        nationAbb = cellsArr[n].attributes.nationAbb.value;
+
+        let imgLink = 'img/nations/'+ nationAbb +'.png';
+        let str;
+        if(leaderName.search(" ") != -1){
+          let a = leaderName.slice(0, leaderName.search(" "));
+          str = a + ' | ' + nation;
+        }else{
+          str = leaderName + ' | ' + nation;
+        };
+        document.getElementById("result").children[k].append(playerBlockNationItem.cloneNode(true));
+        document.getElementById("result").children[k].children[i].children[0].setAttribute("src", imgLink);
+        document.getElementById("result").children[k].children[i].children[1].innerText = str;
+        if(i == 3){
+          textForClipboard = textForClipboard + str + "\n ";
+        }else{
+          textForClipboard = textForClipboard + str + '   /   ';
+        }
+        n++;
+      };
+    }
+
+    console.log(textForClipboard);
+    navigator.clipboard.writeText(textForClipboard);
+  };
+  draftTableCreate();
 };
