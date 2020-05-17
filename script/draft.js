@@ -1,3 +1,5 @@
+const civilizations = 46;
+
 // table build
 var cellsToPush;
 if (window.matchMedia("(min-width: 1570px)").matches) {
@@ -21,7 +23,7 @@ function pushCells(maxCells, columns){
     cellsToPush = maxCells - 46;
     for(i=0; i<cellsToPush; i++){
       document.getElementById("container").insertAdjacentHTML('beforeend',
-      '<div class="cell"><div class="item empty"><input type="checkbox" value="" class="item_checkbox" disabled><div class="bg_icon_empty"><img src="" alt=""class="leader_icon"></div><span class="leader_name"></span></div></div>');
+      '<div class="cell"><div class="item item-empty"><input type="checkbox" value="" class="item_checkbox" disabled><div class="bg_icon_empty"><img src="" alt=""class="leader_icon"></div><span class="leader_name"></span></div></div>');
     };
   };
   if(cellsToPush == undefined){
@@ -32,16 +34,23 @@ function pushCells(maxCells, columns){
 const overlay = document.getElementById("modal_overlay");
 function modalWindowVisible(modalId){
   overlay.classList.add("activeOverlay");
+  let textDiv = overlay.children[0].children[0].children[2];
   if(modalId == 1){
     let bannedNationsQt = 46 - +document.getElementsByName("players_qt")[0].value * +document.getElementsByName("leaders_qt")[0].value
     if(bannedNationsQt<=0){
-      overlay.children[0].children[0].children[2].innerText = 'При указанном количестве игроков и лидеров на каждого игрока вы не можете никого банить, измените настройки';
+      textDiv.innerText = 'При указанном количестве игроков и лидеров на каждого игрока вы не можете никого банить, измените настройки';
     }else{
-      overlay.children[0].children[0].children[2].innerText = 'При указанном количестве игроков и лидеров на каждого игрока, нельзя забанить больше чем ' + bannedNationsQt + ' лидеров, измените настройки';
+      textDiv.innerText = 'При указанном количестве игроков и лидеров на каждого игрока, нельзя забанить больше чем ' + bannedNationsQt + ' лидеров, измените настройки';
     }
     overlay.children[0].classList.add("activeModal");
   }else if (modalId == 2) {
-    overlay.children[0].children[0].children[2].innerText = 'Количество игроков или лидеров на каждого игрока слишком большое, измените настройки'
+    textDiv.innerText = 'Количество игроков или лидеров на каждого игрока слишком большое, измените настройки'
+    overlay.children[0].classList.add("activeModal");
+  }else if (modalId == 3) {
+    textDiv.innerText = 'Некорректное количество игроков, измените настройки';
+    overlay.children[0].classList.add("activeModal");
+  }else if (modalId == 4) {
+    textDiv.innerText = 'Некорректное количество лидеров на каждого игрока, измените настройки';
     overlay.children[0].classList.add("activeModal");
   }
 }
@@ -55,33 +64,41 @@ document.getElementById('container').onclick = function(){
   if(target.id == "container" || target.className == "cell" || target.className.search(/empty/) != -1){
     return;
   }else{
-    if(target.className == "item" || target.className == "item-banned" || target.className == "item-search"){
-      let checkbox = target.childNodes[1];
+    if(target.classList.contains("item") || target.classList.contains("item-banned") || target.classList.contains("item-search")){
+      let checkbox = target.childNodes[3];
       banningAndChecking(checkbox);
-    }else if(target.parentNode.className == "item" || target.parentNode.className == "item-banned"){
-      let checkbox = target.parentNode.childNodes[1];
+    }else if(target.parentNode.classList.contains("item") || target.parentNode.classList.contains("item-banned") || target.parentNode.classList.contains("item-search")){
+      let checkbox = target.parentNode.childNodes[3];
       banningAndChecking(checkbox);
     }
-    else if(target.parentNode.parentNode.className == "item"  || target.parentNode.parentNode.className == "item-banned"){
-      let checkbox = target.parentNode.parentNode.childNodes[1];
+    else if(target.parentNode.parentNode.classList.contains("item")  || target.parentNode.parentNode.classList.contains("item-banned") || target.parentNode.parentNode.classList.contains("item-search")){
+      let checkbox = target.parentNode.parentNode.childNodes[3];
+      console.log(target.parentNode.parentNode.children);
       banningAndChecking(checkbox);
     }
   };
 };
+var searchReset = new Event('input', {
+    bubbles: true,
+    cancelable: true,
+});
 function banningAndChecking(checkbox){
   let remainsBlock = document.getElementById('remain').childNodes[1].innerHTML;
   let bannedBlock = document.getElementById('banned').childNodes[1].innerHTML;
   let players = document.getElementsByName("players_qt")[0].value;
   let leaders = document.getElementsByName("leaders_qt")[0].value;
-  if(checkbox.hasAttribute('checked')){
+  if(checkbox.hasAttribute('checked') == true){
     if(document.getElementById('remain').childNodes[1].innerHTML <= players*leaders){
       modalWindowVisible(1);
     }else{
       document.getElementById('remain').childNodes[1].innerHTML = +remainsBlock -1;
       document.getElementById('banned').childNodes[1].innerHTML = +bannedBlock +1;
-
+      if(checkbox.parentNode.classList.contains("item-search")){
+        document.getElementById("search_search").value = '';
+        document.getElementById("search_search").dispatchEvent(searchReset);
+      }
       checkbox.removeAttribute('checked');
-      checkbox.parentNode.classList.toggle("item");
+      checkbox.parentNode.classList.toggle("item-default");
       checkbox.parentNode.classList.toggle("item-banned");
     }
   } else{
@@ -89,9 +106,24 @@ function banningAndChecking(checkbox){
     document.getElementById('banned').childNodes[1].innerHTML = +bannedBlock -1;
 
     checkbox.setAttribute('checked', null);
-    checkbox.parentNode.classList.toggle("item");
+    checkbox.parentNode.classList.toggle("item-default");
     checkbox.parentNode.classList.toggle("item-banned");
   }
+}
+// invalid character test
+var players_max = 8;
+var leaders_max = 4;
+function checkInputPlayers(elem){
+  if(event.keyCode == 69 || event.keyCode == 188 || event.keyCode == 189 || event.keyCode == 190 || event.keyCode == 191) {
+      return false;
+  }
+  banReset();
+}
+function checkInputLeaders(elem){
+  if(event.keyCode == 69 || event.keyCode == 188 || event.keyCode == 189 || event.keyCode == 190 || event.keyCode == 191) {
+    	return false;
+  }
+  banReset();
 }
 // BANS RESET
 function banReset(){
@@ -102,7 +134,7 @@ function banReset(){
     if(checkboxes[i].hasAttribute('checked')){} else{
       if(checkboxes[i].hasAttribute('disabled')){return;}
       checkboxes[i].setAttribute('checked', null);
-      checkboxes[i].parentNode.classList.toggle("item");
+      checkboxes[i].parentNode.classList.toggle("item-default");
       checkboxes[i].parentNode.classList.toggle("item-banned");
     }
   }
@@ -116,7 +148,7 @@ function changeQuantity(players, nations){
 
 // SEARCH
 
-document.getElementById("search_search").oninput = function () {
+document.getElementById("search_search").addEventListener("input", function () {
     let val = this.value.trim();
     val = val.toLowerCase();
     let items = document.querySelectorAll('.leader_name');
@@ -126,7 +158,9 @@ document.getElementById("search_search").oninput = function () {
               elem.parentNode.classList.remove("item-search");
             }
             else {
-              elem.parentNode.classList.add("item-search");
+              if(elem.parentNode.classList.contains("item-banned") != true){
+                elem.parentNode.classList.add("item-search");
+              }
             }
         });
     }
@@ -135,7 +169,7 @@ document.getElementById("search_search").oninput = function () {
             elem.parentNode.classList.remove("item-search");
         });
     }
-}
+});
 const parent = document.getElementById("container");
 const sortButton = document.getElementById("sort_button_inside").firstChild;
 //change table to invisisble function
@@ -163,7 +197,7 @@ function sortAZ(){
     cells.pop();
   };
   let sortedCells = cells.sort(function(a,b){
-    if(a.children[0].children[2].innerText > b.children[0].children[2].innerText){
+    if(a.children[0].children[3].innerText > b.children[0].children[3].innerText){
       return 1;
     }else{
       return -1;
@@ -188,7 +222,7 @@ function sortZA(){
     cells.pop();
   };
   let sortedCells = cells.sort(function(a,b){
-    if(a.children[0].children[2].innerText > b.children[0].children[2].innerText){
+    if(a.children[0].children[3].innerText > b.children[0].children[3].innerText){
       return 1;
     }else{
       return -1;
@@ -213,6 +247,7 @@ swapButton.addEventListener("click", swapToNations);
 function swapToNations(){
   swapButton.innerText = 'Скрыть нации';
   tableOpacityToZero();
+  document.getElementById("search_search").dispatchEvent(searchReset);
   function cycleOne(){
     for(i=0; i<46; i++){
       let childSpan = parent.children[i].children[0];
@@ -225,7 +260,12 @@ function swapToNations(){
       }else{
         leaderName = leaderFullName + ' | ' + nationName;
       };
-      childSpan.children[2].innerText = leaderName;
+      childSpan.children[3].innerText = leaderName;
+      if(document.getElementById("search_search").value != '' && leaderName.search(document.getElementById("search_search").value.toLowerCase()) != -1 && parent.children[i].children[0].classList.contains("item-banned") != true){
+        parent.children[i].children[0].classList.add("item-search");
+      }else{
+        parent.children[i].children[0].classList.remove("item-search");
+      }
     };
   };
   setTimeout(cycleOne, 75);
@@ -240,7 +280,12 @@ function swapToLeadersName(){
     for(i=0; i<46; i++){
       let childSpan = parent.children[i].children[0];
       let leaderName = childSpan.getAttribute("leader");
-      childSpan.children[2].innerText = leaderName;
+      childSpan.children[3].innerText = leaderName;
+      if(document.getElementById("search_search").value != '' && leaderName.search(document.getElementById("search_search").value.toLowerCase()) != -1 && parent.children[i].children[0].classList.contains("item-banned") != true){
+        parent.children[i].children[0].classList.add("item-search");
+      }else{
+        parent.children[i].children[0].classList.remove("item-search");
+      }
     };
   }
   setTimeout(cycleTwo, 75);
@@ -251,10 +296,21 @@ function swapToLeadersName(){
 };
 
 //oh fuck we r starting
+let draftGenerationTime = 0;
+
 function startingDraft(){
   let players = document.getElementsByName("players_qt")[0].value;
   let nationsPerPlayer = document.getElementsByName("leaders_qt")[0].value;
 
+  if(players == "" || /\D/.test(String(players))){
+    modalWindowVisible(3);
+    document.getElementsByName("players_qt")[0].value = "";
+    return;
+  }else if(nationsPerPlayer == "" || /\D/.test(String(nationsPerPlayer ))){
+    modalWindowVisible(4);
+    document.getElementsByName("leaders_qt")[0].value = "";
+    return;
+  }
 
 
   let checkboxes = document.getElementsByClassName("item_checkbox");
@@ -277,6 +333,9 @@ function startingDraft(){
     modalWindowVisible(2);
     return;
   }
+  document.getElementById('start_button').innerText = "Пересоздать";
+  document.getElementById('prompt').style.opacity = ".8";
+  draftGenerationTime++;
   shuffleArray(cellsArr);
 
   let leaderName;
@@ -314,9 +373,9 @@ function startingDraft(){
       document.getElementById("result").append(playerBlock.cloneNode(true));
       document.getElementById("result").children[k].innerText = "Игрок " + p;
       if(k > 0){
-        textForClipboard = textForClipboard + "\nИгрок " + p + ':   ';
+        textForClipboard =textForClipboard + "\nИгрок " + p + ':   ';
       }else{
-        textForClipboard = textForClipboard + "Игрок " + p + ':   ';
+        textForClipboard ="Драфт был сгенерирован " + draftGenerationTime + " раз/-a\n\n" + textForClipboard + "Игрок " + p + ':   ';
       }
       for(i=0; i<nationsPerPlayer; i++){
         nation = cellsArr[n].attributes.nation.value;

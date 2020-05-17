@@ -34,12 +34,12 @@
     </div>
     <div id="wrapper">
       <header>
-        <img src="img/logo.png" alt=""><a href="" class="logo">ДРАФТЕР</a>
+        <img src="img/logo.png" alt="" class="logo_img"><a href="" class="logo">ДРАФТЕР</a>
           <ul>
-            <li><a href="">Simaoku DDD</a></li>
-            <li><a href="">Discord</a></li>
-            <li><a href="">Стримеры</a></li>
-            <li><a href="">Рейтинг игроков</a></li>
+            <li><a href="https://vk.com/timy78" target="_blank">GOODBOY DDD</a></li>
+            <li><a href="https://vk.com/moevich" target="_blank">Simaoku DDD</a></li>
+            <li><a >Не кликай</a></li>
+            <li><a href="https://vk.com/im?sel=254519689" target="_blank">Нашелся баг?</a></li>
           </ul>
       </header>
       <div id="main">
@@ -51,8 +51,8 @@
             <button type="button" class="default_button" onclick="changeQuantity('8', '4')">FFA-8</button>
             <button type="button" class="default_button" onclick="changeQuantity('10', '4')">FFA-10</button>
             <button type="button" class="default_button" onclick="changeQuantity('12', '3')">FFA-12</button>
-            <div>Количество игроков:<input name="players_qt" type="number" min="1" max="12" value="8" class="default_item"></div>
-            <div>Лидеров на каждого:<input name="leaders_qt" type="number" min="1" value="4" class="default_item"></div>
+            <div>Количество игроков:<input name="players_qt" type="number" min="1" max="12" value="8" class="default_item" onkeydown="return checkInputPlayers(this)"></div>
+            <div>Лидеров на каждого:<input name="leaders_qt" type="number" min="1" value="4" class="default_item" onkeydown="return checkInputLeaders(this)"></div>
           </div>
           <div id="info_nav">
             <div id="info">
@@ -76,322 +76,368 @@
             <div id="container">
 
               <div class="cell">
-                <div class="item" id="amanitore" nation="Нубия" leader="Аманиторе" nationAbb="nb">
+                <div class="item item-default" id="amanitore" nation="Нубия" leader="Аманиторе" nationAbb="nb">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/amanitore.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Аманиторе</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="catherine" nation="Франция" leader="Екатерина Медичи" nationAbb="fr">
+                <div class="item item-default" id="catherine" nation="Франция" leader="Екатерина Медичи" nationAbb="fr">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/catherine.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Екатерина Медичи</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="chandragupta" nation="Индия" leader="Чандрагупта" nationAbb="in">
+                <div class="item item-default" id="chandragupta" nation="Индия" leader="Чандрагупта" nationAbb="in">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/chandragupta.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Чандрагупта</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="cleopatra" nation="Египет" leader="Клеопатра" nationAbb="eg">
+                <div class="item item-default" id="cleopatra" nation="Египет" leader="Клеопатра" nationAbb="eg">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/cleopatra.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Клеопатра</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="cyrus" nation="Персия" leader="Кир" nationAbb="pr">
+                <div class="item item-default" id="cyrus" nation="Персия" leader="Кир" nationAbb="pr">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/cyrus.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Кир</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="alexander" nation="Македония" leader="Александр Македонский" nationAbb="mc">
+                <div class="item item-default" id="alexander" nation="Македония" leader="Александр Македонский" nationAbb="mc">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                     <div class="bg_icon"><img src="img/leaders/alexander.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Александр Македонский</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="dido" nation="Финикия" leader="Дидона" nationAbb="phn">
+                <div class="item item-default" id="dido" nation="Финикия" leader="Дидона" nationAbb="phn">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/dido.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Дидона</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="eleanor(fr)" nation="Франция" leader="Алиенора Аквитанская" nationAbb="fr">
+                <div class="item item-default" id="eleanor(fr)" nation="Франция" leader="Алиенора Аквитанская" nationAbb="fr">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/eleanor(fr).png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Алиенора Аквитанская</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="eleanor(eng)" nation="Англия" leader="Алиенора Аквитанская" nationAbb="ang">
+                <div class="item item-default" id="eleanor(eng)" nation="Англия" leader="Алиенора Аквитанская" nationAbb="ang">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/eleanor(eng).png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Алиенора Аквитанская</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="frederick" nation="Германия" leader="Фридрих Барбаросса" nationAbb="de">
+                <div class="item item-default" id="frederick" nation="Германия" leader="Фридрих Барбаросса" nationAbb="de">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/frederick.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Фридрих Барбаросса</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="gandhi" nation="Индия" leader="Ганди" nationAbb="in">
+                <div class="item item-default" id="gandhi" nation="Индия" leader="Ганди" nationAbb="in">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/gandhi.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Ганди</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="genghis" nation="Монголия" leader="Чингисхан" nationAbb="mn">
+                <div class="item item-default" id="genghis" nation="Монголия" leader="Чингисхан" nationAbb="mn">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/genghis.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Чингисхан</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="gilgamesh" nation="Шумеры" leader="Гильгамеш" nationAbb="sh">
+                <div class="item item-default" id="gilgamesh" nation="Шумеры" leader="Гильгамеш" nationAbb="sh">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/gilgamesh.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Гильгамеш</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="gitarja" nation="Индонезия" leader="Трибхувана" nationAbb="gt">
+                <div class="item item-default" id="gitarja" nation="Индонезия" leader="Трибхувана" nationAbb="gt">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/gitarja.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Трибхувана</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="gorgo" nation="Греция" leader="Горго" nationAbb="gr">
+                <div class="item item-default" id="gorgo" nation="Греция" leader="Горго" nationAbb="gr">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/gorgo.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Горго</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="harald" nation="Норвегия" leader="Харальд Суровый" nationAbb="no">
+                <div class="item item-default" id="harald" nation="Норвегия" leader="Харальд Суровый" nationAbb="no">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/harald.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Харальд Суровый</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="jadwiga" nation="Польша" leader="Ядвига" nationAbb="pl">
+                <div class="item item-default" id="jadwiga" nation="Польша" leader="Ядвига" nationAbb="pl">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/jadwiga.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Ядвига</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="jayavarman" nation="Кхмеры" leader="Джайаварман VII" nationAbb="kh">
+                <div class="item item-default" id="jayavarman" nation="Кхмеры" leader="Джайаварман VII" nationAbb="kh">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/jayavarman.png" alt=""class='leader_icon'></div>
-                  <span class="leader_name">Джайаварман VII</span>
+                  <span class="leader_name">Джайаварман VІІ</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="john" nation="Австралия" leader="Джон Кэртин" nationAbb="au">
+                <div class="item item-default" id="john" nation="Австралия" leader="Джон Кэртин" nationAbb="au">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/john.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Джон Кэртин</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="kristina" nation="Швеция" leader="Кристина" nationAbb="se">
+                <div class="item item-default" id="kristina" nation="Швеция" leader="Кристина" nationAbb="se">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/kristina.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Кристина</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="kupe" nation="Маори" leader="Купе" nationAbb="kp">
+                <div class="item item-default" id="kupe" nation="Маори" leader="Купе" nationAbb="kp">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/kupe.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Купе</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="lautaro" nation="Мапуче" leader="Лаутаро" nationAbb="mp">
+                <div class="item item-default" id="lautaro" nation="Мапуче" leader="Лаутаро" nationAbb="mp">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/lautaro.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Лаутаро</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="mansa" nation="Мали" leader="Муса I" nationAbb="mm">
+                <div class="item item-default" id="mansa" nation="Мали" leader="Муса I" nationAbb="mm">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/mansa.png" alt=""class='leader_icon'></div>
-                  <span class="leader_name">Муса I</span>
+                  <span class="leader_name">Муса І</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="matthias" nation="Венгрия" leader="Матьяш I Корвин" nationAbb="hu">
+                <div class="item item-default" id="matthias" nation="Венгрия" leader="Матьяш I Корвин" nationAbb="hu">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/matthias.png" alt=""class='leader_icon'></div>
-                  <span class="leader_name">Матьяш I Корвин</span>
+                  <span class="leader_name">Матьяш І Корвин</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="montezuma" nation="Ацтеки" leader="Монтесума I" nationAbb="az">
+                <div class="item item-default" id="montezuma" nation="Ацтеки" leader="Монтесума I" nationAbb="az">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/montezuma.png" alt=""class='leader_icon'></div>
-                  <span class="leader_name">Монтесума I</span>
+                  <span class="leader_name">Монтесума І</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="mvemba" nation="Конго" leader="Мвемба а Нзинга" nationAbb="kg">
+                <div class="item item-default" id="mvemba" nation="Конго" leader="Мвемба а Нзинга" nationAbb="kg">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/mvemba.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Мвемба а Нзинга</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="pachacuti" nation="Инки" leader="Пачакутек" nationAbb="ink">
+                <div class="item item-default" id="pachacuti" nation="Инки" leader="Пачакутек" nationAbb="ink">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/pachacuti.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Пачакутек</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="pedro" nation="Бразилия" leader="Педру II" nationAbb="br">
+                <div class="item item-default" id="pedro" nation="Бразилия" leader="Педру II" nationAbb="br">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/pedro.png" alt=""class='leader_icon'></div>
-                  <span class="leader_name">Педру II</span>
+                  <span class="leader_name">Педру ІІ</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="pericles" nation="Греция" leader="Перикл" nationAbb="gr">
+                <div class="item item-default" id="pericles" nation="Греция" leader="Перикл" nationAbb="gr">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/pericles.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Перикл</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="peter" nation="Россия" leader="Петр I" nationAbb="rus">
+                <div class="item item-default" id="peter" nation="Россия" leader="Петр I" nationAbb="rus">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/peter.png" alt=""class='leader_icon'></div>
-                  <span class="leader_name">Петр I</span>
+                  <span class="leader_name">Петр І</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="philip" nation="Испания" leader="Филипп II" nationAbb="es">
+                <div class="item item-default" id="philip" nation="Испания" leader="Филипп II" nationAbb="es">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/philip.png" alt=""class='leader_icon'></div>
-                  <span class="leader_name">Филипп II</span>
+                  <span class="leader_name">Филипп ІІ</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="poundmaker" nation="Кри" leader="Паундмейкер" nationAbb="kri">
+                <div class="item item-default" id="poundmaker" nation="Кри" leader="Паундмейкер" nationAbb="kri">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/poundmaker.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Паундмейкер</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="qin_shi" nation="Китай" leader="Цинь Шихуанди" nationAbb="cn">
+                <div class="item item-default" id="qin_shi" nation="Китай" leader="Цинь Шихуанди" nationAbb="cn">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/qin_shi.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Цинь Шихуанди</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="robert" nation="Шотландия" leader="Роберт I Брюс" nationAbb="scot">
+                <div class="item item-default" id="robert" nation="Шотландия" leader="Роберт I Брюс" nationAbb="scot">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/robert.png" alt=""class='leader_icon'></div>
-                  <span class="leader_name">Роберт I Брюс</span>
+                  <span class="leader_name">Роберт І Брюс</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="saladin" nation="Аравия" leader="Саладин" nationAbb="sa">
+                <div class="item item-default" id="saladin" nation="Аравия" leader="Саладин" nationAbb="sa">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/saladin.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Саладин</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="seondeok" nation="Корея" leader="Сондок" nationAbb="kr">
+                <div class="item item-default" id="seondeok" nation="Корея" leader="Сондок" nationAbb="kr">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/seondeok.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Сондок</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="shaka" nation="Зулусы" leader="Чака" nationAbb="zul">
+                <div class="item item-default" id="shaka" nation="Зулусы" leader="Чака" nationAbb="zul">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/shaka.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Чака</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="suleiman" nation="Османы" leader="Сулейман I Великолепный" nationAbb="osm">
+                <div class="item item-default" id="suleiman" nation="Османы" leader="Сулейман I Великолепный" nationAbb="osm">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/suleiman.png" alt=""class='leader_icon'></div>
-                  <span class="leader_name">Сулейман I Великолепный</span>
+                  <span class="leader_name">Сулейман І Великолепный</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="tamar" nation="Грузия" leader="Тамара" nationAbb="ge">
+                <div class="item item-default" id="tamar" nation="Грузия" leader="Тамара" nationAbb="ge">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/tamar.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Тамара</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="teddy" nation="Америка" leader="Теодор Рузвельт" nationAbb="us">
+                <div class="item item-default" id="teddy" nation="Америка" leader="Теодор Рузвельт" nationAbb="us">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/teddy.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Теодор Рузвельт</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="tokimune" nation="Япония" leader="Ходзе Токимуне" nationAbb="jp">
+                <div class="item item-default" id="tokimune" nation="Япония" leader="Ходзе Токимуне" nationAbb="jp">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/tokimune.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Ходзе Токимуне</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="tomyris" nation="Скифия" leader="Томирис" nationAbb="sc">
+                <div class="item item-default" id="tomyris" nation="Скифия" leader="Томирис" nationAbb="sc">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/tomyris.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Томирис</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="trajan" nation="Рим" leader="Траян" nationAbb="rm">
+                <div class="item item-default" id="trajan" nation="Рим" leader="Траян" nationAbb="rm">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/trajan.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Траян</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="victoria" nation="Англия" leader="Виктория" nationAbb="ang">
+                <div class="item item-default" id="victoria" nation="Англия" leader="Виктория" nationAbb="ang">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/victoria.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Виктория</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="wilfrid" nation="Канада" leader="Уилфрид Лорье" nationAbb="cnd">
+                <div class="item item-default" id="wilfrid" nation="Канада" leader="Уилфрид Лорье" nationAbb="cnd">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/wilfrid.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Уилфрид Лорье</span>
                 </div>
               </div>
               <div class="cell">
-                <div class="item" id="wilhelmina" nation="Нидерланды" leader="Вильгельмина" nationAbb="nl">
+                <div class="item item-default" id="wilhelmina" nation="Нидерланды" leader="Вильгельмина" nationAbb="nl">
+                  <div class="item-hover"></div>
                   <input type="checkbox" value="" class="item_checkbox" checked>
                   <div class="bg_icon"><img src="img/leaders/wilhelmina.png" alt=""class='leader_icon'></div>
                   <span class="leader_name">Вильгельмина</span>
@@ -410,7 +456,7 @@
       <footer>
         <div class="footer_block">
           <span id="footer_logo">Драфтер</span>
-          <span class="comm">Некоммерческий проект для игры<br>sid meier's civilization 6</span>
+          <span class="comm">Некоммерческий проект для игры<br>Sid Meier's Civilization VI</span>
         </div><div class="footer_block">
           <span class="tit">От идиотов для идиотов</span>
           <span class="comm">Не потели, но сделали</span>
@@ -428,7 +474,7 @@
           <span class="comm"><mark>GOODBOY</mark> портил</span>
         </div><div class="footer_block">
           <span class="tit">Поругаться:</span>
-          <a href="https://vk.com/im?sel=140203052" target="_blank" class="comm">vk.com/id140203052</a>
+          <a href="https://vk.com/im?sel=140203052" target="_blank" class="comm">Сергей Тарасов</a>
         </div>
       </footer>
     </div>
