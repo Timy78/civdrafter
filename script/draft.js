@@ -1,26 +1,21 @@
-const civilizations = 46;
+const civilizations = 48;
 
 // table build
 var cellsToPush;
 if (window.matchMedia("(min-width: 1570px)").matches) {
-  columns = 5;
   pushCells(50,5);
 }else if(window.matchMedia("(min-width: 1265px)").matches){
-  columns = 4;
   pushCells(48,4);
 }else if(window.matchMedia("(min-width: 963px)").matches){
-  columns = 3;
   pushCells(48,3);
 }else if(window.matchMedia("(min-width: 655px)").matches){
-  columns = 2;
   pushCells(46,2);
 }else{
-  columns = 1;
   pushCells(46,1);
 };
 function pushCells(maxCells, columns){
-  if(maxCells != 46){
-    cellsToPush = maxCells - 46;
+  if(maxCells != civilizations){
+    cellsToPush = maxCells - civilizations;
     for(i=0; i<cellsToPush; i++){
       document.getElementById("container").insertAdjacentHTML('beforeend',
       '<div class="cell"><div class="item item-empty"><input type="checkbox" value="" class="item_checkbox" disabled><div class="bg_icon_empty"><img src="" alt=""class="leader_icon"></div><span class="leader_name"></span></div></div>');
@@ -36,7 +31,7 @@ function modalWindowVisible(modalId){
   overlay.classList.add("activeOverlay");
   let textDiv = overlay.children[0].children[0].children[2];
   if(modalId == 1){
-    let bannedNationsQt = 46 - +document.getElementsByName("players_qt")[0].value * +document.getElementsByName("leaders_qt")[0].value
+    let bannedNationsQt = civilizations - +document.getElementsByName("players_qt")[0].value * +document.getElementsByName("leaders_qt")[0].value
     if(bannedNationsQt<=0){
       textDiv.innerText = 'При указанном количестве игроков и лидеров на каждого игрока вы не можете никого банить, измените настройки';
     }else{
@@ -127,7 +122,7 @@ function checkInputLeaders(elem){
 }
 // BANS RESET
 function banReset(){
-  document.getElementById('remain').childNodes[1].innerHTML = 46;
+  document.getElementById('remain').childNodes[1].innerHTML = civilizations;
   document.getElementById('banned').childNodes[1].innerHTML = 0;
   let checkboxes = document.getElementsByClassName("item_checkbox");
   for (var i = 0, length = checkboxes.length; i < length; i++) {
@@ -204,7 +199,7 @@ function sortAZ(){
     };
   });
   for(let cell of sortedCells){
-    parent.children[46].insertAdjacentElement('beforebegin', cell);
+    parent.children[civilizations].insertAdjacentElement('beforebegin', cell);
   };
   tableOpacityToOne();
 
@@ -249,7 +244,7 @@ function swapToNations(){
   tableOpacityToZero();
   document.getElementById("search_search").dispatchEvent(searchReset);
   function cycleOne(){
-    for(i=0; i<46; i++){
+    for(i=0; i<civilizations; i++){
       let childSpan = parent.children[i].children[0];
       let nationName = childSpan.getAttribute("nation");
       let leaderFullName = childSpan.getAttribute("leader");
@@ -277,7 +272,7 @@ function swapToNations(){
 function swapToLeadersName(){
   tableOpacityToZero();
   function cycleTwo(){
-    for(i=0; i<46; i++){
+    for(i=0; i<civilizations; i++){
       let childSpan = parent.children[i].children[0];
       let leaderName = childSpan.getAttribute("leader");
       childSpan.children[3].innerText = leaderName;
