@@ -1,5 +1,5 @@
 const civilizations = 48;
-
+var lang = document.getElementsByTagName("html")[0].lang;
 // table build
 var cellsToPush;
 if (window.matchMedia("(min-width: 1570px)").matches) {
@@ -30,24 +30,48 @@ const overlay = document.getElementById("modal_overlay");
 function modalWindowVisible(modalId){
   overlay.classList.add("activeOverlay");
   let textDiv = overlay.children[0].children[0].children[2];
-  if(modalId == 1){
-    let bannedNationsQt = civilizations - +document.getElementsByName("players_qt")[0].value * +document.getElementsByName("leaders_qt")[0].value
-    if(bannedNationsQt<=0){
-      textDiv.innerText = 'При указанном количестве игроков и лидеров на каждого игрока вы не можете никого банить, измените настройки';
-    }else{
-      textDiv.innerText = 'При указанном количестве игроков и лидеров на каждого игрока, нельзя забанить больше чем ' + bannedNationsQt + ' лидеров, измените настройки';
+  if(lang == "ru"){
+    if(modalId == 1){
+      let bannedNationsQt = civilizations - +document.getElementsByName("players_qt")[0].value * +document.getElementsByName("leaders_qt")[0].value
+      if(bannedNationsQt<=0){
+        textDiv.innerText = 'При указанном количестве игроков и лидеров на каждого игрока вы не можете никого банить, измените настройки';
+      }else{
+        textDiv.innerText = 'При указанном количестве игроков и лидеров на каждого игрока, нельзя забанить больше чем ' + bannedNationsQt + ' лидеров, измените настройки';
+      }
+      overlay.children[0].classList.add("activeModal");
+    }else if (modalId == 2) {
+      textDiv.innerText = 'Количество игроков или лидеров на каждого игрока слишком большое, измените настройки'
+      overlay.children[0].classList.add("activeModal");
+    }else if (modalId == 3) {
+      textDiv.innerText = 'Некорректное количество игроков, измените настройки';
+      overlay.children[0].classList.add("activeModal");
+    }else if (modalId == 4) {
+      textDiv.innerText = 'Некорректное количество лидеров на каждого игрока, измените настройки';
+      overlay.children[0].classList.add("activeModal");
     }
-    overlay.children[0].classList.add("activeModal");
-  }else if (modalId == 2) {
-    textDiv.innerText = 'Количество игроков или лидеров на каждого игрока слишком большое, измените настройки'
-    overlay.children[0].classList.add("activeModal");
-  }else if (modalId == 3) {
-    textDiv.innerText = 'Некорректное количество игроков, измените настройки';
-    overlay.children[0].classList.add("activeModal");
-  }else if (modalId == 4) {
-    textDiv.innerText = 'Некорректное количество лидеров на каждого игрока, измените настройки';
-    overlay.children[0].classList.add("activeModal");
+  }else if (lang == "de") {
+
+  }else{
+    if(modalId == 1){
+      let bannedNationsQt = civilizations - +document.getElementsByName("players_qt")[0].value * +document.getElementsByName("leaders_qt")[0].value
+      if(bannedNationsQt<=0){
+        textDiv.innerHTML = 'The number of players and leaders per person equals to maximum of leaders.<br>So, you can not ban anyone.<br>Change your configuration.';
+      }else{
+        textDiv.innerHTML = 'At the specified amount of players and leaders per person you are not allowed<br>to ban more than ' + bannedNationsQt + ' leaders.<br>Change your configuration.';
+      }
+      overlay.children[0].classList.add("activeModal");
+    }else if (modalId == 2) {
+      textDiv.innerHTML = 'The number of players and leaders<br>per person is too much.<br>Change your configuration.'
+      overlay.children[0].classList.add("activeModal");
+    }else if (modalId == 3) {
+      textDiv.innerHTML = 'Invalid amount of players.<br>Change your configuration.';
+      overlay.children[0].classList.add("activeModal");
+    }else if (modalId == 4) {
+      textDiv.innerHTML = 'Invalid amount of leaders per player.<br>Change your configuration.';
+      overlay.children[0].classList.add("activeModal");
+    }
   }
+
 }
 function modalWindowHidden(){
     overlay.classList.remove("activeOverlay");
@@ -240,7 +264,13 @@ const swapButton = document.getElementById("navigation").children[2];
 swapButton.addEventListener("click", swapToNations);
 
 function swapToNations(){
-  swapButton.innerText = 'Скрыть нации';
+  if (lang == "ru"){
+    swapButton.innerText = 'Скрыть нации';
+  }else if (lang == "de") {
+    swapButton.innerText = '';
+  }else{
+    swapButton.innerText = 'Hide nations';
+  }
   tableOpacityToZero();
   document.getElementById("search_search").dispatchEvent(searchReset);
   function cycleOne(){
@@ -286,10 +316,15 @@ function swapToLeadersName(){
   setTimeout(cycleTwo, 75);
   swapButton.removeEventListener("click", swapToLeadersName);
   swapButton.addEventListener("click", swapToNations);
-  swapButton.innerText = 'Показать нации';
+  if (lang == "ru"){
+    swapButton.innerText = 'Показать нации';
+  }else if (lang == "de") {
+    swapButton.innerText = 'Show nations';
+  }else{
+    swapButton.innerText = 'Show nations';
+  }
   setTimeout(tableOpacityToOne, 10);
 };
-
 //oh fuck we r starting
 let draftGenerationTime = 0;
 
@@ -328,7 +363,13 @@ function startingDraft(){
     modalWindowVisible(2);
     return;
   }
-  document.getElementById('start_button').innerText = "Пересоздать";
+  if (lang == "ru"){
+    document.getElementById('start_button').innerText = "Пересоздать";
+  }else if (lang == "de") {
+    document.getElementById('start_button').innerText = "Recreate";
+  }else{
+    document.getElementById('start_button').innerText = "Recreate";
+  }
   document.getElementById('prompt').style.opacity = ".8";
   draftGenerationTime++;
   shuffleArray(cellsArr);
@@ -364,13 +405,24 @@ function startingDraft(){
     let textForClipboard = '';
 
     for(k=0; k < players; k++){
+      if(lang == 'ru'){
+        var playerName = "Игрок ";
+        var draftWasGenerated = "Драфт был сгенерирован ";
+        var draftWasGeneratedTimes = " раз/-a\n\n";
+      }else if(lang == 'de'){
+
+      }else{
+        var playerName = "Player ";
+        var draftWasGenerated = "Draft was generated ";
+        var draftWasGeneratedTimes = " time/-s\n\n";
+      }
       p = k+1;
       document.getElementById("result").append(playerBlock.cloneNode(true));
-      document.getElementById("result").children[k].innerText = "Игрок " + p;
+      document.getElementById("result").children[k].innerText = playerName + p;
       if(k > 0){
-        textForClipboard =textForClipboard + "\nИгрок " + p + ':   ';
+        textForClipboard =textForClipboard + "\n" + playerName + p + ':   ';
       }else{
-        textForClipboard ="Драфт был сгенерирован " + draftGenerationTime + " раз/-a\n\n" + textForClipboard + "Игрок " + p + ':   ';
+        textForClipboard = draftWasGenerated + draftGenerationTime + draftWasGeneratedTimes + textForClipboard + playerName + p + ':   ';
       }
       for(i=0; i<nationsPerPlayer; i++){
         nation = cellsArr[n].attributes.nation.value;
@@ -388,7 +440,7 @@ function startingDraft(){
         document.getElementById("result").children[k].append(playerBlockNationItem.cloneNode(true));
         document.getElementById("result").children[k].children[i].children[0].setAttribute("src", imgLink);
         document.getElementById("result").children[k].children[i].children[1].innerText = str;
-        if(i == 3){
+        if(i == nationsPerPlayer-1){
           textForClipboard = textForClipboard + str + "\n ";
         }else{
           textForClipboard = textForClipboard + str + '   /   ';
