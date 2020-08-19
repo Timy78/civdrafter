@@ -107,7 +107,6 @@ body{
  background-size: cover;
  background-attachment: fixed;
 }
-
 /*modal window*/
 #modal_overlay{
   opacity: 0;
@@ -187,9 +186,13 @@ body{
 }
 
 
-
-*::selection{
-  opacity: 0;
+/*grabbing block */
+body{
+ -webkit-user-select: none;
+ -moz-user-select: none;
+}
+img{
+ pointer-events: none;
 }
 a, li, button, #logo{
  text-decoration: none;
