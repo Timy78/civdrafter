@@ -229,7 +229,13 @@ function sortAZ(){
 
   sortButton.removeEventListener("click", sortAZ);
   sortButton.addEventListener("click", sortZA);
-  document.getElementById("sort_button_inside").firstChild.innerText = "Я-А";
+  if(lang == "ru"){
+    document.getElementById("sort_button_inside").firstChild.innerText = "Я-А";
+  }else if (lang == "de") {
+    document.getElementById("sort_button_inside").firstChild.innerText = "Z-A";
+  }else{
+    document.getElementById("sort_button_inside").firstChild.innerText = "Z-A";
+  }
 };
 
 //ZA
@@ -255,7 +261,13 @@ function sortZA(){
   sortButton.removeEventListener("click", sortZA);
   sortButton.addEventListener("click", sortAZ);
 
-  document.getElementById("sort_button_inside").firstChild.innerText = "А-Я";
+  if(lang == "ru"){
+    document.getElementById("sort_button_inside").firstChild.innerText = "А-Я";
+  }else if (lang == "de") {
+    document.getElementById("sort_button_inside").firstChild.innerText = "A-Z";
+  }else{
+    document.getElementById("sort_button_inside").firstChild.innerText = "A-Z";
+  }
 };
 
 //
@@ -267,7 +279,7 @@ function swapToNations(){
   if (lang == "ru"){
     swapButton.innerText = 'Скрыть нации';
   }else if (lang == "de") {
-    swapButton.innerText = '';
+    swapButton.innerText = 'Hide nations';
   }else{
     swapButton.innerText = 'Hide nations';
   }
