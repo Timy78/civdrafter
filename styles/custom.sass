@@ -1,0 +1,53 @@
+body
+  background: radial-gradient(60.32% 60.32% at 50% 39.68%, rgba(6, 34, 56, 0.266) 0%, rgba(3, 25, 43, 0.7) 54%) fixed, url(../assets/background-min.jpg) fixed
+  background-size: cover
+#wrapper
+  display: flex
+  justify-content: center
+  align-items: flex-start
+  flex-direction: column
+  padding: 0 1vw
+header
+  width: 100%
+  height: 80px
+  display: flex
+  justify-content: space-between
+  align-items: center
+  .logo
+    font-size: 24px
+    color: $color--light-gray
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    gap: 10px
+    &__img
+      height: 50px
+  ul
+    list-style: none
+    display: flex
+    justify-content: center
+    gap: 20px
+    li
+      a
+        padding: 2px 5px
+        color: $color--light-gray
+        &:hover
+          color: $color--cyan
+
+
+  .lang-choice
+    padding: 5px
+    &--current, &--unactive
+      display: block
+      &:hover
+        opacity: 0.8
+    &--unactive
+      display: none
+
+
+
+@media screen and (min-width: 800px)
+  #wrapper
+    padding: 0 10vw
+  header
+
